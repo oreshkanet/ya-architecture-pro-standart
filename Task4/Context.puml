@@ -1,0 +1,27 @@
+@startuml Standart_Context
+title Standart Context Diagram
+
+!include ../c4/C4_Context.puml
+
+' ПОЛЬЗОВАТЕЛИ
+Person_Ext(CallCenterParnerUser, "Call-Center (Partner)", "Сотрудник партнёрского кол-центра:\n— Звонит клиенту по заявкам\n— Первичная обработка заявок")
+Person(CallCenterUser, "Call-Center", "Сотрудник кол-центра:\n— Звонит клиенту по заявкам\n— Первичная обработка заявок")
+Person(BackOfficeCreditUser, "Back-Office (Credit)", "Сотрудник бэк-фиса (кредит):\n— Анализирует кредитные риски по клиенту")
+
+' ВНЕШНИЕ СИСТЕМЫ
+System_Ext(CallCenterPartnerSystem, "Call-Center Mail (Partner)", "Почта партнёрского кол-центра")
+
+' ВНУТРЕННИЕ СИСТЕМЫ
+System(CallCenterSystem, "Call Center", "Система кол-центра")
+System(ABSSystem, "ABS", "Система АБС")
+
+' ВЗАИМОДЕЙСТВИЯ
+Rel(CallCenterParnerUser, CallCenterPartnerSystem, "Просмотр ставок по депозитам заявок")
+Rel(CallCenterUser, CallCenterSystem, "Просмотр ставок по депозитам заявок")
+Rel(BackOfficeCreditUser, ABSSystem, "Расчёт ставок по депозитам и установка их в системе")
+
+Rel(ABSSystem, CallCenterSystem, "Передача данных по ставкам по депозитам")
+Rel(ABSSystem, CallCenterPartnerSystem, "Отправка писем с данными по ставкам по депозитам")
+
+
+@enduml
