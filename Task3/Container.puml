@@ -1,0 +1,79 @@
+@startuml Standart_Context
+title Standart Container Diagram
+
+!include ../c4/C4_Container.puml
+
+' ПОЛЬЗОВАТЕЛИ
+Person_Ext(Customer, "Customer", "Клиент:\n— Просматривает предложение по депозитам\n— Оформляет заявку на депозит")
+Person_Ext(CallCenterParnerUser, "Call-Center (Partner)", "Сотрудник партнёрского кол-центра:\n— Звонит клиенту по заявкам\n— Первичная обработка заявок")
+Person(CallCenterUser, "Call-Center", "Сотрудник кол-центра:\n— Звонит клиенту по заявкам\n— Первичная обработка заявок")
+Person(BackOfficeDepositUser, "Back-Office (Deposit)", "Сотрудник бэк-офиса (депозит):\n— Обрабатывает заявки\n— Рассчитывает ставки депозита")
+Person(BackOfficeCreditUser, "Back-Office (Credit)", "Сотрудник бэк-офиса (кредит):\n— Анализирует кредитные риски по клиенту")
+Person(FrontOfficeUser, "Front-Office", "Сотрудник фронт-офиса\n— Идентифицирует клиента\n- Оформляет документы по депозитам")
+
+' ВНЕШНИЕ СИСТЕМЫ
+System_Ext(TelecomSystem, "Telecom System", "Телеком-оператор")
+System_Ext(CallCenterPartnerSystem, "Call Center (Partner)", "Система партнёрского кол-центра")
+System_Ext(CreditHistorySystem, "Credit History", "Бюро кредитных историй")
+
+' ВНУТРЕННИЕ СИСТЕМЫ
+System(CallCenterSystem, "Call Center", "Система кол-центра")
+System_Boundary(ABSSystem, "ABS", "Система АБС") {
+    Container(ABSFrontend, "ABS Frontend", "Delphi", "Клиентская часть системы")
+    Container(ABSIntegrations, "ABS Integrations", ".NET Framework 4.5", "Сервис интеграции АБС с другими системами")
+    Container(ABSBackend, "ABS Backend", "Oracle", "Серверная часть системы (процедуры в Oracle)")
+    ContainerDb(ABSDatabase, "Internet Bank Database", "Oracle", "Хранение данных заявок на депозит")
+    ContainerQueue(ABSQueue, "ABS Queue", "Kafka", "Очередь для асинхронной обработки запросов")
+    
+    Rel(ABSFrontend, ABSBackend, "Команды по заявкам", "PL-SQL")  
+    Rel(ABSIntegrations, ABSBackend, "Команды по заявкам", "PL-SQL")  
+    Rel(ABSQueue, ABSIntegrations, "Чтение сообщений для обработки", "")  
+    Rel(ABSFrontend, ABSDatabase, "Чтение/запись данных заявок", "SQL") 
+    Rel(ABSBackend, ABSDatabase, "Чтение/запись данных заявок", "SQL")     
+}
+System_Boundary(InternetBankSystem, "Internet Bank", "Интернет-банк") {
+    Container(InternetBankFrontend, "Internet Bank Frontend", "ASP.NET MVC 4.5", "Клиентская часть системы")
+    Container(InternetBankBackend, "Internet Bank Backend", ".NET Framework 4.5", "Серверная часть системы")
+    Container(InternetBankDeposit, "Internet Bank Deposit", ".NET Framework 4.5", "Серверная часть системы")
+    ContainerDb(InternetBankDatabase, "Internet Bank Database", "MS SQL", "Хранение данных интернет-банка")
+    ContainerDb(InternetBankDepositDatabase, "Internet Bank Deposit Database", "MS SQL", "Хранение данных заявок на депозит")
+
+    Rel(InternetBankFrontend, InternetBankBackend, "Получение данных заявок\nКоманды по заявкам", "HTTP")  
+    Rel(InternetBankBackend, InternetBankDatabase, "Чтение/запись данных по клиентам", "SQL")
+    Rel(InternetBankFrontend, InternetBankDeposit, "Запросы по заявкам на депозит", "HTTP")
+    Rel(InternetBankDeposit, InternetBankBackend, "Получение данных по клиентам", "HTTP")
+    Rel(InternetBankDeposit, InternetBankDepositDatabase, "Чтение/запись данных по заявкам", "SQL")     
+}
+System(SiteSystem, "Site", "Сайт банка")
+System_Boundary(SMSGatewaySystem, "SMS Gateway", "СМС-шлюз телеком-оператора") {
+    ContainerQueue(SMSGatewayQueue, "SMS Queue", "Kafka", "Очередь уведомлений") 
+    Container(SMSGateway, "SMS Gateway", ".NET Framework 4.5", "СМС-шлюз телеком-оператора") 
+
+    Rel(SMSGatewayQueue, SMSGateway, "Чтение сообщения к отправке", "SQL")  
+}
+
+' ВЗАИМОДЕЙСТВИЯ
+Rel(Customer, SiteSystem, "Просмотр депозитов\n и оформление заявок")
+Rel(Customer, InternetBankFrontend, "Просмотр депозитов\n и оформление заявок")
+Rel(CallCenterParnerUser, CallCenterPartnerSystem, "Первичная обработка заявок")
+Rel(CallCenterUser, CallCenterSystem, "Первичная обработка заявок")
+Rel(BackOfficeDepositUser, ABSFrontend, "Обработка заявок и расчёт ставок")
+Rel(BackOfficeCreditUser, ABSFrontend, "Анализ кредитных рисков по клиенту")
+Rel_L(FrontOfficeUser, ABSFrontend, "Идентификация клиента\nОформление депозита")
+
+Rel(CallCenterSystem, ABSQueue, "Результат первичной обработки заявок")
+Rel(CallCenterPartnerSystem, ABSQueue, "Результат первичной обработки заявок")
+
+Rel(SMSGateway, TelecomSystem, "Отправка СМС")
+Rel(SiteSystem, CallCenterPartnerSystem, "Создание заявки на звонок")
+Rel(SiteSystem, CallCenterSystem, "Создание заявки на звонок")
+
+Rel(ABSBackend, SMSGatewayQueue, "Отправка уведомлений по заявке")
+Rel(ABSBackend, CreditHistorySystem, "Получение кредитной истории клиента")
+Rel(InternetBankDeposit, SMSGatewayQueue, "Отправка СМС для подтверждения операций")
+
+Rel(InternetBankDeposit, ABSQueue, "Создание заявки на депозит")
+Rel(SiteSystem, ABSQueue, "Создание заявки на депозит")
+
+
+@enduml
