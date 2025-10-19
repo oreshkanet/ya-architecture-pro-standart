@@ -1,0 +1,46 @@
+@startuml Standart_Context
+title Standart Context Diagram
+
+!include ../c4/C4_Context.puml
+
+' ПОЛЬЗОВАТЕЛИ
+Person_Ext(Customer, "Customer", "Клиент:\n— Просматривает предложение по кредитам\n— Оформляет заявку на кредит")
+Person(BackOfficeCreditUser, "Back-Office (Credit)", "Сотрудник бэк-фиса (кредит):\n— Анализирует кредитные риски по клиенту")
+Person(FrontOfficeUser, "Front-Office", "Сотрудник фронт-фиса\n— Идентифицирует клиента\n- Оформляет документы по заявкам на кредит")
+
+' ВНЕШНИЕ СИСТЕМЫ
+System_Ext(CreditHistorySystem, "Credit History", "Бюро кредитных историй")
+System_Ext(TelecomSystem, "Telecom System", "Телеком-оператор")
+
+' ВНУТРЕННИЕ СИСТЕМЫ
+System(ABSSystem, "ABS", "Система АБС")
+System(InternetBankSystem, "Internet Bank", "Интернет-банк")
+System(CreditProcessingSystem, "Credit Processing", "Кредитный процессинг")
+System(CreditPipelineSystem, "Credit Pipeline", "Кредитный конвейер")
+System(CreditScoringSystem, "Credit Scoring", "Кредитный скоринг")
+System(SiteSystem, "Site", "Сайт банка")
+System(SMSGateway, "SMS Gateway", "СМС-шлюз телеком-оператора")
+
+' ВЗАИМОДЕЙСТВИЯ
+Rel(Customer, SiteSystem, "Просмотр кредитных предложений\n и оформление заявок")
+Rel(Customer, InternetBankSystem, "Просмотр кредитных предложений\n и оформление заявок")
+Rel(BackOfficeCreditUser, CreditPipelineSystem, "Обработка заявок на кредит")
+Rel(FrontOfficeUser, ABSSystem, "Идентификация клиента\nОформление заявок на кредит")
+
+Rel(CreditProcessingSystem, SMSGateway, "Отправка уведомлений по заявке")
+Rel(InternetBankSystem, SMSGateway, "Отправка СМС для подтверждения операций")
+Rel_L(SMSGateway, TelecomSystem, "Отправка СМС")
+
+Rel(SiteSystem, CreditProcessingSystem, "Создание заявки на кредит")
+Rel(InternetBankSystem, CreditProcessingSystem, "Создание заявки на кредит")
+
+Rel(CreditProcessingSystem, ABSSystem, "Получение данных о клиенте,\nЗапись одобренной заявки на кредит")
+Rel(CreditProcessingSystem, CreditPipelineSystem, "Отправка заявки в обработку,\nполучение статуса заявки")
+Rel(ABSSystem, CreditProcessingSystem, "Регистрация новой заявки на кредит")
+
+Rel(CreditPipelineSystem, CreditScoringSystem, "Скоринг клиента по заявке на кредит")
+
+Rel(CreditScoringSystem, CreditHistorySystem, "Получение кредитной истории клиента")
+Rel(CreditScoringSystem, ABSSystem, "Получение данных клиента")
+
+@enduml

@@ -1,0 +1,170 @@
+<mxfile host="65bd71144e">
+    <diagram id="bsLpvfq0t93J0SeCOiAo" name="Page-1">
+        <mxGraphModel dx="4157" dy="3512" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Автоматизированная банковская система (АБС)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="-1230" y="145" width="340" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="96" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-550" y="320" as="sourcePoint"/>
+                        <mxPoint x="-360" y="170" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="-600" y="80"/>
+                            <mxPoint x="-975" y="80"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="55" value="загрузка&amp;nbsp;&lt;div&gt;решений по&amp;nbsp;&lt;/div&gt;&lt;div&gt;заявкам&lt;/div&gt;&lt;div&gt;на кредит&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="54" connectable="0" vertex="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="64" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="-840" y="-170" width="100" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=light-dark(#00bef2, #ededed);" parent="64" vertex="1">
+                    <mxGeometry width="100" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="" style="group" parent="64" vertex="1" connectable="0">
+                    <mxGeometry x="20" y="20" width="60" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.user;" parent="61" vertex="1">
+                    <mxGeometry x="6.25" width="47.5" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Клиент банка&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="61" vertex="1">
+                    <mxGeometry y="50" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="-250" y="180" width="100" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=light-dark(#00bef2, #ededed);" parent="66" vertex="1">
+                    <mxGeometry width="100" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="" style="group" parent="66" vertex="1" connectable="0">
+                    <mxGeometry x="20" y="20" width="60" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.user;" parent="68" vertex="1">
+                    <mxGeometry x="6.25" width="47.5" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="Сотрудник&lt;br&gt;отдела кредитных&lt;br&gt;продуктов" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="68" vertex="1">
+                    <mxGeometry y="50" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="-1110" y="-170" width="100" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="85" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=light-dark(#00bef2, #ededed);" parent="84" vertex="1">
+                    <mxGeometry width="100" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="" style="group" parent="84" vertex="1" connectable="0">
+                    <mxGeometry x="20" y="20" width="60" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.user;" parent="86" vertex="1">
+                    <mxGeometry x="6.25" width="47.5" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Сотрудник отделения банка&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="86" vertex="1">
+                    <mxGeometry y="50" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" parent="1" source="85" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-1300" y="35" as="sourcePoint"/>
+                        <mxPoint x="-1135" y="155" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="92" value="оформление&lt;div&gt;заявки на кредит&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="91" connectable="0" vertex="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="-5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="94" value="" style="endArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="60" target="85">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-1190" y="-155" as="sourcePoint"/>
+                        <mxPoint x="-650" y="-70" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="95" value="визит&lt;div&gt;в банк&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="94">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="3" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="96" value="Кредитный конвейер" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+                    <mxGeometry x="-690" y="220" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" value="Система кредитного скоринга" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+                    <mxGeometry x="-690" y="430" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="Бюро кредитных историй" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+                    <mxGeometry x="-250" y="430" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="3" target="96">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-330" y="90" as="sourcePoint"/>
+                        <mxPoint x="-965" y="155" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="100" value="передача&lt;div&gt;заявок&lt;/div&gt;&lt;div&gt;на обработку&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="99">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="101" value="" style="endArrow=classic;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="67" target="96">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-290" y="190" as="sourcePoint"/>
+                        <mxPoint x="-1105" y="155" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="102" value="обработка&lt;div&gt;заявок на кредит&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="101">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="103" value="" style="endArrow=classic;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="96" target="97">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-1020" y="265" as="sourcePoint"/>
+                        <mxPoint x="-680" y="265" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="104" value="скоринг&lt;div&gt;заёмщика&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="103">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="105" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="97" target="98">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-590" y="300" as="sourcePoint"/>
+                        <mxPoint x="-590" y="410" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="106" value="получение данных&lt;div&gt;из бюро кредитных историй&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="105">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="107" value="" style="endArrow=classic;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.999;entryY=0.729;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;entryPerimeter=0;" edge="1" parent="1" source="97" target="3">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-450" y="300" as="sourcePoint"/>
+                        <mxPoint x="-450" y="410" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="108" value="получение данных&lt;div&gt;о платежах по кредиту&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="107">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="109" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="endArrow=classic;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="97" target="96">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-635" y="300" as="sourcePoint"/>
+                        <mxPoint x="-635" y="440" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="110" value="получение&lt;div&gt;данных о номерах&lt;/div&gt;&lt;div&gt;платежей по&lt;/div&gt;&lt;div&gt;кредиту&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="109">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

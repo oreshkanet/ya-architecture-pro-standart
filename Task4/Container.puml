@@ -1,0 +1,47 @@
+@startuml Standart_Context
+title Standart Container Diagram
+
+!include ../c4/C4_Container.puml
+
+' ПОЛЬЗОВАТЕЛИ
+Person_Ext(CallCenterParnerUser, "Call-Center (Partner)", "Сотрудник партнёрского кол-центра:\n— Звонит клиенту по заявкам\n— Первичная обработка заявок")
+Person(CallCenterUser, "Call-Center", "Сотрудник кол-центра:\n— Звонит клиенту по заявкам\n— Первичная обработка заявок")
+Person(BackOfficeCreditUser, "Back-Office (Credit)", "Сотрудник бэк-фиса (кредит):\n— Анализирует кредитные риски по клиенту")
+
+' ВНЕШНИЕ СИСТЕМЫ
+System_Ext(CallCenterPartnerSystem, "Call-Center Mail (Partner)", "Почта партнёрского кол-центра")
+
+' ВНУТРЕННИЕ СИСТЕМЫ
+System_Boundary(CallCenterSystem, "Call-Center", "Система кол-центра") {
+    Container(CallCenterFrontend, "Call-Center Frontend", "React.js", "Клиентская часть системы")
+    Container(CallCenterBackend, "Call-Center Backend", "Java Spring Boot", "Микросервисы системы кол-центра")
+    ContainerDb(CallCenterDatabase, "Call-Center Database", "PostgreSQL", "Хранение данных системы")
+    
+    Rel(CallCenterFrontend, CallCenterBackend, "Получение данных по депозитам", "HTTP")  
+    Rel(CallCenterBackend, CallCenterDatabase, "Чтение/запись данных по депозитам", "SQL")     
+}
+System_Boundary(ABSSystem, "ABS", "Система АБС") {
+    Container(ABSFrontend, "ABS Frontend", "Delphi", "Клиентская часть системы")
+    Container(ABSIntegrations, "ABS Integrations", ".NET Framework 4.5", "Сервис интеграции АБС с другими системами")
+    Container(ABSBackend, "ABS Backend", "Oracle", "Серверная часть системы (процедуры в Oracle)")
+    ContainerDb(ABSDatabase, "ABS Database", "Oracle", "Хранение данных заявок на депозит")
+    ContainerQueue(ABSQueue, "ABS Queue", "Kafka", "Очередь для асинхронной обработки запросов")
+    
+    Rel(ABSFrontend, ABSBackend, "Команды расчёта ставок", "PL-SQL")  
+    Rel(ABSBackend, ABSIntegrations, "Передача информации по депозитам", "HTTP")  
+    Rel(ABSIntegrations, ABSQueue, "Запись сообщений с данными по депозитам", "")  
+    Rel(ABSFrontend, ABSDatabase, "Чтение/запись данных для расчёта", "SQL") 
+    Rel(ABSBackend, ABSDatabase, "Чтение/запись данных для расчёта", "SQL")     
+}
+System(MailSystem, "Mail Server", "SMTP-сервер для отправки писем")
+
+' ВЗАИМОДЕЙСТВИЯ
+Rel(MailSystem, CallCenterPartnerSystem, "Отправка писем со ставками по депозитам")
+Rel(CallCenterParnerUser, CallCenterPartnerSystem, "Просмотр ставок по депозитам")
+Rel(CallCenterUser, CallCenterFrontend, "Просмотр ставок по депозитам заявок")
+Rel(BackOfficeCreditUser, ABSFrontend, "Расчёт ставок по депозитам и установка их в системе")
+
+Rel(ABSQueue, CallCenterBackend, "Передача данных по ставкам по депозитам")
+Rel(ABSQueue, MailSystem, "Чтение данных по ставкам для отправки писем")
+
+@enduml
