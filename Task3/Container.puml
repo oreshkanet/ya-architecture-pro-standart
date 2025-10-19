@@ -20,29 +20,28 @@ System_Ext(CreditHistorySystem, "Credit History", "Бюро кредитных �
 System(CallCenterSystem, "Call Center", "Система кол-центра")
 System_Boundary(ABSSystem, "ABS", "Система АБС") {
     Container(ABSFrontend, "ABS Frontend", "Delphi", "Клиентская часть системы")
-    Container(ABSIntegrations, "ABS Integrations", ".NET Framework 4.5", "Сервис интеграции АБС с другими системами")
     Container(ABSBackend, "ABS Backend", "Oracle", "Серверная часть системы (процедуры в Oracle)")
     ContainerDb(ABSDatabase, "Internet Bank Database", "Oracle", "Хранение данных заявок на депозит")
-    ContainerQueue(ABSQueue, "ABS Queue", "Kafka", "Очередь для асинхронной обработки запросов")
     
     Rel(ABSFrontend, ABSBackend, "Команды по заявкам", "PL-SQL")  
-    Rel(ABSIntegrations, ABSBackend, "Команды по заявкам", "PL-SQL")  
-    Rel(ABSQueue, ABSIntegrations, "Чтение сообщений для обработки", "")  
     Rel(ABSFrontend, ABSDatabase, "Чтение/запись данных заявок", "SQL") 
     Rel(ABSBackend, ABSDatabase, "Чтение/запись данных заявок", "SQL")     
 }
 System_Boundary(InternetBankSystem, "Internet Bank", "Интернет-банк") {
     Container(InternetBankFrontend, "Internet Bank Frontend", "ASP.NET MVC 4.5", "Клиентская часть системы")
     Container(InternetBankBackend, "Internet Bank Backend", ".NET Framework 4.5", "Серверная часть системы")
-    Container(InternetBankDeposit, "Internet Bank Deposit", ".NET Framework 4.5", "Серверная часть системы")
     ContainerDb(InternetBankDatabase, "Internet Bank Database", "MS SQL", "Хранение данных интернет-банка")
-    ContainerDb(InternetBankDepositDatabase, "Internet Bank Deposit Database", "MS SQL", "Хранение данных заявок на депозит")
-
+    
     Rel(InternetBankFrontend, InternetBankBackend, "Получение данных заявок\nКоманды по заявкам", "HTTP")  
     Rel(InternetBankBackend, InternetBankDatabase, "Чтение/запись данных по клиентам", "SQL")
-    Rel(InternetBankFrontend, InternetBankDeposit, "Запросы по заявкам на депозит", "HTTP")
-    Rel(InternetBankDeposit, InternetBankBackend, "Получение данных по клиентам", "HTTP")
-    Rel(InternetBankDeposit, InternetBankDepositDatabase, "Чтение/запись данных по заявкам", "SQL")     
+}
+System_Boundary(DepositProcessingSystem, "Deposit Processing", "Процессинг депозитов") {
+    Container(DepositProcessing, "Deposit Processing", ".NET Framework 4.5", "Серверная часть системы")
+    ContainerDb(DepositProcessingDatabase, "Data Processing Database", "MS SQL", "Хранение данных заявок на депозит")
+    ContainerQueue(DepositProcessingQueue, "Deposit Processing Queue", "Kafka", "Очередь для асинхронной обработки запросов")
+    
+    Rel(DepositProcessing, DepositProcessingDatabase, "Чтение/запись данных по заявкам", "SQL")
+    Rel(DepositProcessingQueue, DepositProcessing, "Чтение сообщений для обработки", "")
 }
 System(SiteSystem, "Site", "Сайт банка")
 System_Boundary(SMSGatewaySystem, "SMS Gateway", "СМС-шлюз телеком-оператора") {
@@ -55,25 +54,28 @@ System_Boundary(SMSGatewaySystem, "SMS Gateway", "СМС-шлюз телеком
 ' ВЗАИМОДЕЙСТВИЯ
 Rel(Customer, SiteSystem, "Просмотр депозитов\n и оформление заявок")
 Rel(Customer, InternetBankFrontend, "Просмотр депозитов\n и оформление заявок")
-Rel(CallCenterParnerUser, CallCenterPartnerSystem, "Первичная обработка заявок")
-Rel(CallCenterUser, CallCenterSystem, "Первичная обработка заявок")
+Rel_D(CallCenterParnerUser, CallCenterPartnerSystem, "Первичная обработка заявок")
+Rel_R(CallCenterUser, CallCenterSystem, "Первичная обработка заявок")
 Rel(BackOfficeDepositUser, ABSFrontend, "Обработка заявок и расчёт ставок")
 Rel(BackOfficeCreditUser, ABSFrontend, "Анализ кредитных рисков по клиенту")
-Rel_L(FrontOfficeUser, ABSFrontend, "Идентификация клиента\nОформление депозита")
+Rel(FrontOfficeUser, ABSFrontend, "Идентификация клиента\nОформление депозита")
 
-Rel(CallCenterSystem, ABSQueue, "Результат первичной обработки заявок")
-Rel(CallCenterPartnerSystem, ABSQueue, "Результат первичной обработки заявок")
+Rel(DepositProcessing, ABSBackend, "Создание заявки на депозит,\nполучение статуса заявки", "HTTP")  
+Rel(DepositProcessing, CallCenterSystem, "Создание заявок на звонок", "HTTP")  
+Rel_L(DepositProcessing, CallCenterPartnerSystem, "Создание заявок на звонок", "HTTP")  
+    
+
+Rel_R(CallCenterSystem, DepositProcessingQueue, "Результат первичной обработки заявок")
+Rel(CallCenterPartnerSystem, DepositProcessingQueue, "Результат первичной обработки заявок")
 
 Rel(SMSGateway, TelecomSystem, "Отправка СМС")
-Rel(SiteSystem, CallCenterPartnerSystem, "Создание заявки на звонок")
-Rel(SiteSystem, CallCenterSystem, "Создание заявки на звонок")
 
-Rel(ABSBackend, SMSGatewayQueue, "Отправка уведомлений по заявке")
 Rel(ABSBackend, CreditHistorySystem, "Получение кредитной истории клиента")
-Rel(InternetBankDeposit, SMSGatewayQueue, "Отправка СМС для подтверждения операций")
+Rel(DepositProcessing, SMSGatewayQueue, "Отправка СМС для подтверждения операций")
+Rel(InternetBankBackend, DepositProcessing, "Запросы по заявкам на депозит", "HTTP")
 
-Rel(InternetBankDeposit, ABSQueue, "Создание заявки на депозит")
-Rel(SiteSystem, ABSQueue, "Создание заявки на депозит")
+Rel(SiteSystem, DepositProcessingQueue, "Создание заявки на депозит")
+Rel(SiteSystem, DepositProcessing, "Получение списка актуальных депозитов")
 
 
 @enduml

@@ -19,6 +19,7 @@ System_Ext(CreditHistorySystem, "Credit History", "Бюро кредитных �
 ' ВНУТРЕННИЕ СИСТЕМЫ
 System(CallCenterSystem, "Call Center", "Система кол-центра")
 System(ABSSystem, "ABS", "Система АБС")
+System(DepositProcessingSystem, "Deposit Processing", "Процессинг депозитов")
 System(InternetBankSystem, "Internet Bank", "Интернет-банк")
 System(SiteSystem, "Site", "Сайт банка")
 System(SMSGateway, "SMS Gateway", "СМС-шлюз телеком-оператора")
@@ -33,15 +34,17 @@ Rel_U(BackOfficeCreditUser, ABSSystem, "Анализ кредитных риск
 Rel_U(FrontOfficeUser, ABSSystem, "Идентификация клиента\nОформление депозита")
 
 Rel(SMSGateway, TelecomSystem, "Отправка СМС")
-Rel(SiteSystem, CallCenterPartnerSystem, "Создание заявки на звонок")
-Rel(SiteSystem, CallCenterSystem, "Создание заявки на звонок")
+
+Rel(DepositProcessingSystem, CallCenterPartnerSystem, "Создание заявки на звонок")
+Rel(DepositProcessingSystem, CallCenterSystem, "Создание заявки на звонок")
 
 Rel(ABSSystem, CreditHistorySystem, "Получение данных о клиенте")
-Rel(ABSSystem, SMSGateway, "Отправка уведомлений по заявке")
+Rel(DepositProcessingSystem, SMSGateway, "Отправка уведомлений по заявке")
 Rel(InternetBankSystem, SMSGateway, "Отправка СМС для подтверждения операций")
 
-Rel(InternetBankSystem, ABSSystem, "Создание заявки на депозит")
-Rel(SiteSystem, ABSSystem, "Создание заявки на депозит")
+Rel(InternetBankSystem, DepositProcessingSystem, "Создание заявки на депозит")
+Rel(DepositProcessingSystem, ABSSystem, "Создание заявки на депозит")
+Rel(SiteSystem, DepositProcessingSystem, "Создание заявки на депозит")
 
 
 @enduml
