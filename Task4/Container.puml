@@ -24,11 +24,11 @@ System_Boundary(ABSSystem, "ABS", "Система АБС") {
     Container(ABSFrontend, "ABS Frontend", "Delphi", "Клиентская часть системы")
     Container(ABSIntegrations, "ABS Integrations", ".NET Framework 4.5", "Сервис интеграции АБС с другими системами")
     Container(ABSBackend, "ABS Backend", "Oracle", "Серверная часть системы (процедуры в Oracle)")
-    ContainerDb(ABSDatabase, "Internet Bank Database", "Oracle", "Хранение данных заявок на депозит")
+    ContainerDb(ABSDatabase, "ABS Database", "Oracle", "Хранение данных заявок на депозит")
     ContainerQueue(ABSQueue, "ABS Queue", "Kafka", "Очередь для асинхронной обработки запросов")
     
     Rel(ABSFrontend, ABSBackend, "Команды расчёта ставок", "PL-SQL")  
-    Rel(ABSBackend, ABSIntegrations, "Передача информации по депозитам", "PL-SQL")  
+    Rel(ABSBackend, ABSIntegrations, "Передача информации по депозитам", "HTTP")  
     Rel(ABSIntegrations, ABSQueue, "Запись сообщений с данными по депозитам", "")  
     Rel(ABSFrontend, ABSDatabase, "Чтение/запись данных для расчёта", "SQL") 
     Rel(ABSBackend, ABSDatabase, "Чтение/запись данных для расчёта", "SQL")     
